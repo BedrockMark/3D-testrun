@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://o4ciao6lai73"]
+
+[ext_resource type="Script" uid="uid://bjxnog2civxsb" path="res://effect.gd" id="1_8k7fc"]
+[ext_resource type="Script" uid="uid://7elyr35s06gg" path="res://mesh_instance_3d.gd" id="2_ce50g"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ce50g"]
+lifetime_randomness = 0.17
+angle_min = -139.4
+angle_max = 59.7
+inherit_velocity_ratio = 1.0
+direction = Vector3(0, 1, 0)
+initial_velocity_max = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnuxy"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_2t0m4"]
+material = SubResource("StandardMaterial3D_lnuxy")
+radius = 0.05
+height = 0.1
+is_hemisphere = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vb57n"]
+transparency = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_8k7fc"]
+material = SubResource("StandardMaterial3D_vb57n")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="GPUParticles3D" type="GPUParticles3D"]
+emitting = false
+amount = 16
+lifetime = 0.18
+one_shot = true
+randomness = 0.51
+process_material = SubResource("ParticleProcessMaterial_ce50g")
+draw_pass_1 = SubResource("SphereMesh_2t0m4")
+script = ExtResource("1_8k7fc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_8k7fc")
+script = ExtResource("2_ce50g")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
